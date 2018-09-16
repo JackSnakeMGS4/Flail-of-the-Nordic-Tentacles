@@ -4,7 +4,7 @@ var fps = 60;
 window.onload = function()
 {
 	canvas = document.getElementById('gc');
-	canvasContext = document.getElementById('2d');
+	canvasContext = canvas.getContext('2d');
 
 	//loadImages();
 	//player.reset();
@@ -12,7 +12,7 @@ window.onload = function()
 
 function imgsDoneLoadingSoStartGame()
 {
-	setupInput();
+	//setupInput();
 	setInterval(updateAll, 1000/fps);
 }
 
@@ -29,5 +29,5 @@ function moveAll()
 
 function drawAll()
 {
-	
+	drawRect(0,0, canvas.width,canvas.height, 'black');
 }
