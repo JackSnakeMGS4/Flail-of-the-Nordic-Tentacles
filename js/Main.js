@@ -6,13 +6,13 @@ window.onload = function()
 	canvas = document.getElementById('gc');
 	canvasContext = canvas.getContext('2d');
 
-	//loadImages();
+	loadImages();
 	//player.reset();
 }
 
 function imgsDoneLoadingSoStartGame()
 {
-	//setupInput();
+	setupInput();
 	setInterval(updateAll, 1000/fps);
 }
 
@@ -29,5 +29,5 @@ function moveAll()
 
 function drawAll()
 {
-	drawRect(0,0, canvas.width,canvas.height, 'black');
+	drawWorld();
 }
