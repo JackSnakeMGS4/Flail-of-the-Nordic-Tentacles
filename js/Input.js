@@ -12,7 +12,7 @@ function setupInput()
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	//setup inputs for player
+	player.setupInput(KEY_W,KEY_S,KEY_A,KEY_D);
 }
 
 function updateMousePos(evt)
@@ -26,36 +26,36 @@ function updateMousePos(evt)
 	//drawtext for mouse pos for debugging purposes and mayber more?
 }
 
-function keySet (keyEvent, setTo)
+function keySet (keyEvent, player, setTo)
 {
-	// if(keyEvent.keyCode == player.ctrlKLeft)
-	// {
-	// 	player.keyHeld_dirLeft = setTo;
-	// }
-	// if(keyEvent.keyCode == player.ctrlKRight)
-	// {
-	// 	player.keyHeld_dirRight = setTo;
-	// }
-	// if(keyEvent.keyCode == player.ctrlKUp)
-	// {
-	// 	player.keyHeld_dirUp = setTo;
-	// }
-	// if(keyEvent.keyCode == player.ctrlKDown)
-	// {
-	// 	player.keyHeld_dirDown = setTo;
-	// }
+	if(keyEvent == player.ctrlWest)
+	{
+		player.goingWest = setTo;
+	}
+	if(keyEvent == player.ctrlEast)
+	{
+		player.goingEast = setTo;
+	}
+	if(keyEvent == player.ctrlNorth)
+	{
+		player.goingNorth = setTo;
+	}
+	if(keyEvent == player.ctrlSouth)
+	{
+		player.goingSouth = setTo;
+	}
 }
 
 function keyPressed(evt)
 {
-	keySet(evt, true);
+	keySet(evt.keyCode, player, true);
 
 	evt.preventDefault();
 }
 
 function keyReleased(evt)
 {
-	keySet(evt, false);
+	keySet(evt.keyCode, player, false);
 
 	evt.preventDefault();
 }

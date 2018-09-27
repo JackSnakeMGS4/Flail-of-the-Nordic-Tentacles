@@ -1,5 +1,6 @@
 var worldPics = [];
-var characterPics = [];
+var playerPic = document.createElement("img");
+var enemyPic = document.createElement("img");
 
 var picToLoad = 0;
 
@@ -9,6 +10,7 @@ function loadImages()
 		// Character Pics Go Here
 		// {charName: CHAR_TYPE from world.js, fileName: "playerPic.png"}
 		{charName: TILE_PLAYER, fileName: "viking_quick.png"},
+		{charName: TILE_ENEMY, fileName: "slime_quick.png"},
 		// World Pics Go Here
 		// {worldType: TILE_TYPE (as in variable that this file will be associated with) from World.js, fileName: "groundPic.png"}
 		{worldType: TILE_ROAD, fileName: "road_quick.png"},
@@ -22,13 +24,17 @@ function loadImages()
 
 	for(var i = 0; i < imageList.length; i++)
 	{
-		if(imageList[i].charName != undefined)
-		{
-			loadCharPics(imageList[i].charName, imageList[i].fileName);
-		}
-		else if(imageList[i].worldType != undefined)
+		// if(imageList[i].charName != undefined)
+		// {
+		// 	loadCharPics(imageList[i].charName, imageList[i].fileName);
+		// }
+		if(imageList[i].worldType != undefined)
 		{
 			loadWorldPics(imageList[i].worldType, imageList[i].fileName);
+		}
+		else
+		{
+			beginLoadingImages(imageList[i].charName, imageList[i].fileName);
 		}
 	}
 }
@@ -49,11 +55,11 @@ function countLoadedImgsAndLaunchIfAble()
 	}
 }
 
-function loadCharPics(charCode, fileName)
-{
-	characterPics[charCode] = document.createElement("img");
-	beginLoadingImages(characterPics[charCode], fileName);
-}
+// function loadCharPics(charCode, fileName)
+// {
+// 	characterPics[charCode] = document.createElement("img");
+// 	beginLoadingImages(characterPics[charCode], fileName);
+// }
 
 function loadWorldPics(worldCode, fileName)
 {

@@ -1,5 +1,6 @@
 var canvas, canvasContext;
 var fps = 60;
+var player = new vikingClass();
 
 window.onload = function()
 {
@@ -7,12 +8,12 @@ window.onload = function()
 	canvasContext = canvas.getContext('2d');
 
 	loadImages();
-	//player.reset();
 }
 
 function imgsDoneLoadingSoStartGame()
 {
 	setupInput();
+	player.init(playerPic, "Ragnar");
 	setInterval(updateAll, 1000/fps);
 }
 
@@ -30,4 +31,5 @@ function moveAll()
 function drawAll()
 {
 	drawWorld();
+	player.draw();
 }

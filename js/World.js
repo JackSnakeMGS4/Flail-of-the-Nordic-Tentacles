@@ -17,7 +17,7 @@ var worldMap = [
 				1,1,1,2,2,2,1,3,1,1,1,1,3,3,3,1,1,4,2,2,
 				1,1,1,1,1,1,1,1,3,3,3,3,3,1,1,1,4,4,2,2,
 				1,1,1,1,1,1,1,1,1,1,1,3,1,1,4,4,4,4,2,2,
-				1,1,1,1,1,1,1,1,1,1,1,3,3,4,4,4,4,4,2,2,
+				1,1,1,1,1,1,1,0,1,1,1,3,3,4,4,4,4,4,2,2,
 				1,1,1,1,1,1,1,1,1,1,1,1,1,4,4,4,4,4,2,2,
 				1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2
 				];	
@@ -29,6 +29,7 @@ const TILE_TREE = 4;
 const TILE_MOUNTAIN = 5;
 
 const TILE_PLAYER = 0;
+const TILE_ENEMY = 6;
 
 function drawWorld()
 {
@@ -52,4 +53,9 @@ function drawWorld()
 		}
 		tileTopEdgeY += TILE_H;
 	}
+}
+
+function getTileIndexAtRowCol(tileX, tileY)
+{
+	
 }
