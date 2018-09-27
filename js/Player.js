@@ -18,6 +18,25 @@ function vikingClass()
 		this.ctrlEast =easth;
 	}
 
+	this.init = function(image, name)
+	{
+		this.charBitmap = image;
+		this.charName = name;
+
+		this.reset();
+	}
+
+	this.reset = function()
+	{
+		if(TILE_PLAYER != undefined)
+		{
+			for(var i = 0; i < worldMap.length; i++)
+			{
+				
+			}
+		}
+	}
+
 	this.draw = function()
 	{
 		drawBitmapCenteredWithRot(this.bitmap, this.x, this.y, 0.0);
