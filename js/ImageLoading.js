@@ -9,8 +9,8 @@ function loadImages()
 	var imageList = [
 		// Character Pics Go Here
 		// {charName: CHAR_TYPE from world.js, fileName: "playerPic.png"}
-		{charName: TILE_PLAYER, fileName: "viking_quick.png"},
-		{charName: TILE_ENEMY, fileName: "slime_quick.png"},
+		{charName: playerPic, fileName: "viking_quick.png"},
+		{charName: enemyPic, fileName: "slime_quick.png"},
 		// World Pics Go Here
 		// {worldType: TILE_TYPE (as in variable that this file will be associated with) from World.js, fileName: "groundPic.png"}
 		{worldType: TILE_ROAD, fileName: "road_quick.png"},

@@ -43,10 +43,8 @@ function drawWorld()
 		for(var col = 0; col < W_COLS; col++)
 		{
 			var tileType = worldMap[tileIndex];
-			if(tileType != undefined)
-			{
-				canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
-			}
+			
+			canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
 			
 			tileIndex++;
 			tileLeftEgdeX += TILE_W;
@@ -55,7 +53,26 @@ function drawWorld()
 	}
 }
 
-function getTileIndexAtRowCol(tileX, tileY)
+function getTileIndexAtRowCol(pxX, pxY)
 {
-	
+	var tileCol = pxX / TILE_W;
+	var tileRow = pxY / TILE_H;
+
+	tileCol = Math.floor(tileCol);
+	tileRow = Math.floor(tileRow);
+
+	if(tileCol < 0 || tileCol >= W_COLS ||
+		tileRow < 0 || tileRow >= W_ROWS)
+	{
+		console.log("TILE not walkable");
+		return undefined;
+	}
+
+	var tileIndex = roomTileToIndex(tileCol, tileRow);
+	return tileIndex;
+}
+
+function roomTileToIndex(tileCol, tileRow)
+{
+	return (tileCol + W_COLS * tileRow);
 }

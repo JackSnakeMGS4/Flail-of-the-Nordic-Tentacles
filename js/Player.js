@@ -4,6 +4,7 @@ function vikingClass()
 {
 	this.x = 75;
 	this.y = 75;
+	this.ableToMove = true;
 
 	this.goingNorth = false;
 	this.goingSouth = false;
@@ -77,6 +78,36 @@ function vikingClass()
 		if(nextTileIndex != undefined)
 		{
 			nextTileType = worldMap[nextTileIndex];
+		}
+
+		if(this.moveIfAble(nextTileType))
+		{
+			this.x = nextX;
+			this.y = nextY;
+		}
+	}
+
+	this.moveIfAble = function(tileType)
+	{
+		switch(tileType)
+		{
+			case TILE_SNOW:
+				return true;
+				break;
+			case TILE_ROAD:
+				return true;
+				break;
+			case TILE_OCEAN:
+				return false;
+				break;
+			case TILE_TREE:
+				return false;
+				break;
+			case TILE_MOUNTAIN:
+				return false;
+				break;
+			default:
+				break;
 		}
 	}
 

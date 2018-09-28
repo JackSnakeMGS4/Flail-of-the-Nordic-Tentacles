@@ -12,9 +12,10 @@ window.onload = function()
 
 function imgsDoneLoadingSoStartGame()
 {
-	setupInput();
-	player.init(playerPic, "Ragnar");
 	setInterval(updateAll, 1000/fps);
+
+	player.init(playerPic, "Ragnar");
+	setupInput();
 }
 
 function updateAll()
@@ -25,7 +26,7 @@ function updateAll()
 
 function moveAll()
 {
-
+	player.move();
 }
 
 function drawAll()
