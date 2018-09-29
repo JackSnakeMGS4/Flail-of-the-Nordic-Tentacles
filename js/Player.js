@@ -16,7 +16,7 @@ function vikingClass()
 		this.ctrlNorth = north;
 		this.ctrlSouth = south;
 		this.ctrlWest = west;
-		this.ctrlEast =east;
+		this.ctrlEast = east;
 	}
 
 	this.init = function(image, name)
@@ -69,7 +69,7 @@ function vikingClass()
 		}
 		if(this.goingEast)
 		{
-			nextY += PLAYER_SPEED;
+			nextX += PLAYER_SPEED;
 		}
 
 		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);

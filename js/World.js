@@ -44,7 +44,10 @@ function drawWorld()
 		{
 			var tileType = worldMap[tileIndex];
 			
-			canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
+			if(tileType != undefined)
+			{
+				canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
+			}
 			
 			tileIndex++;
 			tileLeftEgdeX += TILE_W;
