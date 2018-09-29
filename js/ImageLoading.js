@@ -1,6 +1,6 @@
 var worldPics = [];
-var playerPic = document.createElement("img");
-var enemyPic = document.createElement("img");
+var vikingPic = document.createElement("img");
+var slimePic = document.createElement("img");
 
 var picToLoad = 0;
 
@@ -9,8 +9,8 @@ function loadImages()
 	var imageList = [
 		// Character Pics Go Here
 		// {charName: CHAR_TYPE from world.js, fileName: "playerPic.png"}
-		{charName: playerPic, fileName: "viking_quick.png"},
-		{charName: enemyPic, fileName: "slime_quick.png"},
+		{charName: vikingPic, fileName: "viking_quick.png"},
+		{charName: slimePic, fileName: "slime_quick.png"},
 		// World Pics Go Here
 		// {worldType: TILE_TYPE (as in variable that this file will be associated with) from World.js, fileName: "groundPic.png"}
 		{worldType: TILE_ROAD, fileName: "road_quick.png"},

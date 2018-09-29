@@ -1,23 +1,12 @@
-const PLAYER_SPEED = 4.0;
+const SLIME_SPEED = 1.5;
+const TILES_ABLE_TO_PATROL = 2;
 
-function vikingClass()
+function slimeClass()
 {
-	this.x = 75;
-	this.y = 75;
-	this.ableToMove = true;
+	this.x = 0;
+	this.y = 0;
 
-	this.goingNorth = false;
-	this.goingSouth = false;
-	this.goingWest = false;
-	this.goingEast = false;
-
-	this.setupInput = function(north,south,west,east)
-	{
-		this.ctrlNorth = north;
-		this.ctrlSouth = south;
-		this.ctrlWest = west;
-		this.ctrlEast = east;
-	}
+	this.isPatrolling = true;
 
 	this.init = function(image, name)
 	{
@@ -28,24 +17,21 @@ function vikingClass()
 
 	this.reset = function()
 	{
-		//reset player stats to last saved stats
-		//reset player health, buffs, etc
 		if(this.homeX == undefined)
 		{
 			for(var i = 0; i < worldMap.length; i++)
 			{
-				if(worldMap[i] == TILE_PLAYER)
+				if(worldMap[i] == TILE_ENEMY)
 				{
 					var tileRow = Math.floor(i/W_COLS);
 					var tileCol = i%W_COLS;
 					this.homeX = tileCol * TILE_W + 0.5 * TILE_W;
-					this.homeY = tileRow * TILE_H + 0.5 * TILE_H;
+					this.homeY = tileRow * TILE_H + 0.25 * TILE_H;
 					worldMap[i] = TILE_SNOW;
 					break;
 				}
 			}
 		}
-
 		this.x = this.homeX;
 		this.y = this.homeY;
 	}
@@ -55,22 +41,7 @@ function vikingClass()
 		var nextX = this.x;
 		var nextY = this.y;
 
-		if(this.goingNorth)
-		{
-			nextY -= PLAYER_SPEED;
-		}	
-		if(this.goingSouth)
-		{
-			nextY += PLAYER_SPEED;
-		}
-		if(this.goingWest)
-		{
-			nextX -= PLAYER_SPEED;
-		}
-		if(this.goingEast)
-		{
-			nextX += PLAYER_SPEED;
-		}
+		// var  this.patrolRouteX(nextX);
 
 		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
 		var nextTileType = TILE_SNOW;
@@ -86,6 +57,11 @@ function vikingClass()
 			this.y = nextY;
 		}
 	}
+
+	// this.patrolRouteX = function(nextX)
+	// {
+
+	// }
 
 	this.moveIfAble = function(tileType)
 	{
@@ -107,6 +83,7 @@ function vikingClass()
 				return false;
 				break;
 			default:
+			return false;
 				break;
 		}
 	}

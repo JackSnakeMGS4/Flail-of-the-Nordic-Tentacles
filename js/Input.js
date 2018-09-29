@@ -12,7 +12,7 @@ function setupInput()
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	player.setupInput(KEY_W,KEY_S,KEY_A,KEY_D);
+	viking.setupInput(KEY_W,KEY_S,KEY_A,KEY_D);
 }
 
 function updateMousePos(evt)
@@ -26,36 +26,36 @@ function updateMousePos(evt)
 	//drawtext for mouse pos for debugging purposes and mayber more?
 }
 
-function keySet (keyEvent, player, setTo)
+function keySet (keyEvent, viking, setTo)
 {
-	if(keyEvent == player.ctrlWest)
+	if(keyEvent == viking.ctrlWest)
 	{
-		player.goingWest = setTo;
+		viking.goingWest = setTo;
 	}
-	if(keyEvent == player.ctrlEast)
+	if(keyEvent == viking.ctrlEast)
 	{
-		player.goingEast = setTo;
+		viking.goingEast = setTo;
 	}
-	if(keyEvent == player.ctrlNorth)
+	if(keyEvent == viking.ctrlNorth)
 	{
-		player.goingNorth = setTo;
+		viking.goingNorth = setTo;
 	}
-	if(keyEvent == player.ctrlSouth)
+	if(keyEvent == viking.ctrlSouth)
 	{
-		player.goingSouth = setTo;
+		viking.goingSouth = setTo;
 	}
 }
 
 function keyPressed(evt)
 {
-	keySet(evt.keyCode, player, true);
+	keySet(evt.keyCode, viking, true);
 
 	evt.preventDefault();
 }
 
 function keyReleased(evt)
 {
-	keySet(evt.keyCode, player, false);
+	keySet(evt.keyCode, viking, false);
 
 	evt.preventDefault();
 }
