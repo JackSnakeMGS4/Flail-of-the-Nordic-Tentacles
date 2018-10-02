@@ -1,5 +1,5 @@
 var canvas, canvasContext;
-var fps = 60;
+var fps = 30;
 var viking = new vikingClass();
 var slime = new slimeClass();
 
@@ -29,6 +29,7 @@ function updateAll()
 function moveAll()
 {
 	viking.move();
+	slime.move();
 }
 
 function drawAll()

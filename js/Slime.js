@@ -1,12 +1,24 @@
-const SLIME_SPEED = 1.5;
-const TILES_ABLE_TO_PATROL = 2;
+const SLIME_SPEED = 2.0;
+const WAIT_TIME_BEFORE_PATROLLING = 150;
+const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
+const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
 
 function slimeClass()
 {
-	this.x = 0;
-	this.y = 0;
+	this.x = 75;
+	this.y = 75;
+	this.numOfPxMoved = 0;
+	this.currentWaitTime = WAIT_TIME_BEFORE_PATROLLING;
 
-	this.isPatrolling = true;
+	this.isPatrolling = false;
+	/* 
+	TODO: use bools (until I figure out a better solution) to make enemy move one direction a time only
+	train of thought so far:
+	this.isPatrollingEast = false;
+	this.isPatrollingWest = false;
+	this.isPatrollingNorth = false;
+	this.isPatrollingSouth = false;
+	*/
 
 	this.init = function(image, name)
 	{
@@ -36,32 +48,56 @@ function slimeClass()
 		this.y = this.homeY;
 	}
 
+	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
 	this.move = function()
-	{
-		var nextX = this.x;
-		var nextY = this.y;
+	{	
+		//TODO: have slime wait 5 secs before initiating patrol to one direction. Then wait 5 secs again and move in another direction.
+		// if(this.currentWaitTime >= 0)
+		// {
+		// 	this.currentWaitTime--;
+		// 	if(this.currentWaitTime <= 0)
+		// 	{
+		// 		this.isPatrolling = !this.isPatrolling;
+		// 	}
+		// }
 
-		// var  this.patrolRouteX(nextX);
-
-		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
-		var nextTileType = TILE_SNOW;
-
-		if(nextTileIndex != undefined)
+		if(this.isPatrolling)
 		{
-			nextTileType = worldMap[nextTileIndex];
+			this.x += SLIME_SPEED;
+			this.numOfPxMoved += SLIME_SPEED;
+			if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+			{
+				this.isPatrolling = !this.isPatrolling;
+			}
 		}
-
-		if(this.moveIfAble(nextTileType))
+		else if(!this.isPatrolling)
 		{
-			this.x = nextX;
-			this.y = nextY;
+			this.x -= SLIME_SPEED;
+			this.numOfPxMoved -= SLIME_SPEED;
+			if(this.numOfPxMoved <= 0)
+			{
+				this.isPatrolling = !this.isPatrolling;
+			}
 		}
+		//TODO: implement this.moveIfAble to prevent enemy from traversing non-traversable terrain.
+
+		// var nextX = this.x;
+		// var nextY = this.y;
+
+		// var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
+		// var nextTileType = TILE_SNOW;
+
+		// if(nextTileIndex != undefined)
+		// {
+		// 	nextTileType = worldMap[nextTileIndex];
+		// }
+
+		// if(this.moveIfAble(nextTileType))
+		// {
+		// 	this.x = nextX;
+		// 	this.y = nextY;
+		// }
 	}
-
-	// this.patrolRouteX = function(nextX)
-	// {
-
-	// }
 
 	this.moveIfAble = function(tileType)
 	{

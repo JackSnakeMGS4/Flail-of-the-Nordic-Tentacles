@@ -74,7 +74,7 @@ function vikingClass()
 
 		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
 		var nextTileType = TILE_SNOW;
-		console.log(this.x, this.y, nextTileIndex);
+		//console.log(this.x, this.y, nextTileIndex);
 
 		if(nextTileIndex != undefined)
 		{
