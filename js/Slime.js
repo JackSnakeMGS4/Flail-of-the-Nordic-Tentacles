@@ -2,15 +2,18 @@ const SLIME_SPEED = 2.0;
 const WAIT_TIME_BEFORE_PATROLLING = 150;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
+const DETECTION_RADIUS = TILE_W * 3;
 
 function slimeClass()
 {
 	this.x = 75;
 	this.y = 75;
 	this.numOfPxMoved = 0;
-	this.currentWaitTime = WAIT_TIME_BEFORE_PATROLLING;
+	this.currentWaitTime = 0;
 
-	this.isPatrolling = false;
+	this.isPatrollingRight = false;
+	this.canPatrol = false;
+
 	/* 
 	TODO: use bools (until I figure out a better solution) to make enemy move one direction a time only
 	train of thought so far:
@@ -51,34 +54,28 @@ function slimeClass()
 	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
 	this.move = function()
 	{	
-		//TODO: have slime wait 5 secs before initiating patrol to one direction. Then wait 5 secs again and move in another direction.
-		// if(this.currentWaitTime >= 0)
-		// {
-		// 	this.currentWaitTime--;
-		// 	if(this.currentWaitTime <= 0)
-		// 	{
-		// 		this.isPatrolling = !this.isPatrolling;
-		// 	}
-		// }
-
-		if(this.isPatrolling)
+		if(!this.isSentryModeOn(WAIT_TIME_BEFORE_PATROLLING))
 		{
-			this.x += SLIME_SPEED;
-			this.numOfPxMoved += SLIME_SPEED;
-			if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+			if(this.isPatrollingRight)
 			{
-				this.isPatrolling = !this.isPatrolling;
+				this.x += SLIME_SPEED;
+				this.numOfPxMoved += SLIME_SPEED;
+				if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+				{
+					this.isPatrollingRight = !this.isPatrollingRight;
+				}
+			}
+			else if(!this.isPatrollingRight)
+			{
+				this.x -= SLIME_SPEED;
+				this.numOfPxMoved -= SLIME_SPEED;
+				if(this.numOfPxMoved <= 0)
+				{
+					this.isPatrollingRight = !this.isPatrollingRight;
+				}
 			}
 		}
-		else if(!this.isPatrolling)
-		{
-			this.x -= SLIME_SPEED;
-			this.numOfPxMoved -= SLIME_SPEED;
-			if(this.numOfPxMoved <= 0)
-			{
-				this.isPatrolling = !this.isPatrolling;
-			}
-		}
+			
 		//TODO: implement this.moveIfAble to prevent enemy from traversing non-traversable terrain.
 
 		// var nextX = this.x;
@@ -121,6 +118,30 @@ function slimeClass()
 			default:
 			return false;
 				break;
+		}
+	}
+
+	//check if slime is acting sentry
+	this.isSentryModeOn = function(waitTime)
+	{
+		if(this.currentWaitTime <= 0)
+		{
+			this.canPatrol = false;
+		}
+		else if(this.currentWaitTime >= waitTime)
+		{
+			this.canPatrol = true;
+		}
+
+		if(!this.canPatrol)
+		{
+			this.currentWaitTime++;
+			return true;
+		}
+		else
+		{
+			this.currentWaitTime--;
+			return false;
 		}
 	}
 
