@@ -35,8 +35,8 @@ function moveAll()
 
 function battleAll()
 {
-	viking.battle();
-	slime.battle();
+	// viking.battle();
+	// slime.battle();
 }
 
 function drawAll()

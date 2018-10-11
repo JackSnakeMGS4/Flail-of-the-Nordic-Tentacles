@@ -11,7 +11,9 @@ function slimeClass()
 	this.leftEdge;
 	this.rightEdge;
 	this.topEdge;
-	this.bottomEdge ;
+	this.bottomEdge;
+
+	this.directionFaced;
 	
 	this.numOfPxMoved = 0;
 	this.currentWaitTime = 0;
@@ -74,6 +76,7 @@ function slimeClass()
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
 					this.numOfPxMoved += SLIME_SPEED;
+					this.directionFaced = "East";
 					if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
 					{
 						this.isPatrollingRight = !this.isPatrollingRight;
@@ -86,6 +89,7 @@ function slimeClass()
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
 					this.numOfPxMoved -= SLIME_SPEED;
+					this.directionFaced = "West";
 					if(this.numOfPxMoved <= 0)
 					{
 						this.isPatrollingRight = !this.isPatrollingRight;
@@ -107,6 +111,7 @@ function slimeClass()
 		/*TODO: find a way to reference enemies; once enemy can detected, check which player edge collide with which enemy edge;
 			if collision was player front on enemy front, dmg player; if collision was player front on enemy back or sides then dmg enemy
 			THINK OF Ys I and II
+			NOTE: use this.directionFaced and check it against player's direction faced to find zone of collision
 		*/
 	}
 

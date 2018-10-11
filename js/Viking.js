@@ -14,6 +14,8 @@ function vikingClass()
 	this.goingWest = false;
 	this.goingEast = false;
 
+	this.directionFaced;
+
 	this.setupInput = function(north,south,west,east)
 	{
 		this.ctrlNorth = north;
@@ -58,21 +60,26 @@ function vikingClass()
 		var nextX = this.centerX;
 		var nextY = this.centerY;		
 
+		//TODO: function to set which direction is being faced just like the one implemented in We Must Prepare @Player.js @this.move
 		if(this.goingNorth)
 		{
 			nextY -= VIKING_SPEED;
+			this.directionFaced = "North";
 		}	
 		if(this.goingSouth)
 		{
 			nextY += VIKING_SPEED;
+			this.directionFaced = "South";
 		}
 		if(this.goingWest)
 		{
 			nextX -= VIKING_SPEED;
+			this.directionFaced = "West";
 		}
 		if(this.goingEast)
 		{
 			nextX += VIKING_SPEED;
+			this.directionFaced = "East";
 		}
 
 		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
@@ -103,6 +110,7 @@ function vikingClass()
 		/*TODO: find a way to reference enemies; once enemy can detected, check which player edge collide with which enemy edge;
 			if collision was player front on enemy front, dmg player; if collision was player front on enemy back or sides then dmg enemy
 			THINK OF Ys I and II
+			NOTE: use this.directionFaced and check it against slime's direction faced to find zone of collision
 		*/	
 	}
 
