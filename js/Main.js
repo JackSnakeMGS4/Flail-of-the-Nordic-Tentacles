@@ -23,6 +23,7 @@ function imgsDoneLoadingSoStartGame()
 function updateAll()
 {
 	moveAll();
+	battleAll();
 	drawAll();
 }
 
@@ -30,6 +31,12 @@ function moveAll()
 {
 	viking.move();
 	slime.move();
+}
+
+function battleAll()
+{
+	viking.battle();
+	slime.battle();
 }
 
 function drawAll()

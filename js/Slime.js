@@ -6,8 +6,13 @@ const DETECTION_RADIUS = TILE_W * 3;
 
 function slimeClass()
 {
-	this.x = 75;
-	this.y = 75;
+	this.centerX = 75;
+	this.centerY = 75;
+	this.leftEdge;
+	this.rightEdge;
+	this.topEdge;
+	this.bottomEdge ;
+	
 	this.numOfPxMoved = 0;
 	this.currentWaitTime = 0;
 
@@ -15,7 +20,7 @@ function slimeClass()
 	this.canPatrol = false;
 
 	/* 
-	TODO: use bools (until I figure out a better solution) to make enemy move one direction a time only
+	TODO: use bools (until I figure out a better solution if it's within my skill level) to make enemy move one direction a time only
 	train of thought so far:
 	this.isPatrollingEast = false;
 	this.isPatrollingWest = false;
@@ -47,53 +52,62 @@ function slimeClass()
 				}
 			}
 		}
-		this.x = this.homeX;
-		this.y = this.homeY;
+		this.centerX = this.homeX;
+		this.centerY = this.homeY;
 	}
 
 	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
 	this.move = function()
 	{	
+		var nextX = this.centerX;
+		var nextY = this.centerY;
+
+		/*TODO: make enemy move three tiles even if it collides with terrain. 
+			For example, if it collides with a tree to right and has only traveled two tile measures then it will three to the left
+			currently, it only moves two in either directions when it collides but if in the open it will move three right and three left
+		*/
 		if(!this.isSentryModeOn(WAIT_TIME_BEFORE_PATROLLING))
 		{
 			if(this.isPatrollingRight)
 			{
-				this.x += SLIME_SPEED;
-				this.numOfPxMoved += SLIME_SPEED;
-				if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+				nextX += SLIME_SPEED;
+				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.isPatrollingRight = !this.isPatrollingRight;
-				}
+					this.numOfPxMoved += SLIME_SPEED;
+					if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+					{
+						this.isPatrollingRight = !this.isPatrollingRight;
+					}
+				}	
 			}
 			else if(!this.isPatrollingRight)
 			{
-				this.x -= SLIME_SPEED;
-				this.numOfPxMoved -= SLIME_SPEED;
-				if(this.numOfPxMoved <= 0)
+				nextX -= SLIME_SPEED;
+				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.isPatrollingRight = !this.isPatrollingRight;
-				}
+					this.numOfPxMoved -= SLIME_SPEED;
+					if(this.numOfPxMoved <= 0)
+					{
+						this.isPatrollingRight = !this.isPatrollingRight;
+					}
+				}			
 			}
 		}
-			
-		//TODO: implement this.moveIfAble to prevent enemy from traversing non-traversable terrain.
 
-		// var nextX = this.x;
-		// var nextY = this.y;
+		this.leftEdge = this.centerX - this.bitmap.width/2;
+		this.rightEdge = this.centerX + this.bitmap.width/2;
+		this.topEdge = this.centerY - this.bitmap.height/2;
+		this.bottomEdge = this.centerY + this.bitmap.height/2;
 
-		// var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
-		// var nextTileType = TILE_SNOW;
+		// console.log(this.leftEdge, this.rightEdge, this.topEdge, this.bottomEdge);
+	}//end of this.move
 
-		// if(nextTileIndex != undefined)
-		// {
-		// 	nextTileType = worldMap[nextTileIndex];
-		// }
-
-		// if(this.moveIfAble(nextTileType))
-		// {
-		// 	this.x = nextX;
-		// 	this.y = nextY;
-		// }
+	this.battle = function(player)
+	{
+		/*TODO: find a way to reference enemies; once enemy can detected, check which player edge collide with which enemy edge;
+			if collision was player front on enemy front, dmg player; if collision was player front on enemy back or sides then dmg enemy
+			THINK OF Ys I and II
+		*/
 	}
 
 	this.moveIfAble = function(tileType)
@@ -116,7 +130,7 @@ function slimeClass()
 				return false;
 				break;
 			default:
-			return false;
+				return false;
 				break;
 		}
 	}
@@ -145,8 +159,32 @@ function slimeClass()
 		}
 	}
 
+	this.canMoveToNextTile = function(nextCenterX,nextCenterY)
+	{
+		var nextTileIndex = getTileIndexAtRowCol(nextCenterX, nextCenterY);
+		var nextTileType = TILE_SNOW;
+
+		if(nextTileIndex != undefined)
+		{
+			nextTileType = worldMap[nextTileIndex];
+			if(this.moveIfAble(nextTileType))
+			{
+				this.centerX = nextCenterX;
+				this.centerY = nextCenterY;
+
+				return true;
+			}
+			else
+			{
+				this.isPatrollingRight = !this.isPatrollingRight;
+
+				return false;
+			}
+		}
+	}
+
 	this.draw = function()
 	{
-		drawBitmapCenteredWithRot(this.bitmap, this.x, this.y, 0.0);
+		drawBitmapCenteredWithRot(this.bitmap, this.centerX, this.centerY, 0.0);
 	}
 }

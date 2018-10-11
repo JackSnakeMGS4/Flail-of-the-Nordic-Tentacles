@@ -2,9 +2,12 @@ const VIKING_SPEED = 2.0;
 
 function vikingClass()
 {
-	this.x = 75;
-	this.y = 75;
-	this.ableToMove = true;
+	this.centerX = 75;
+	this.centerY = 75;
+	this.leftEdge;
+	this.rightEdge;
+	this.topEdge;
+	this.bottomEdge;
 
 	this.goingNorth = false;
 	this.goingSouth = false;
@@ -46,14 +49,14 @@ function vikingClass()
 			}
 		}
 
-		this.x = this.homeX;
-		this.y = this.homeY;
+		this.centerX = this.homeX;
+		this.centerY = this.homeY;
 	}
 
 	this.move = function()
 	{
-		var nextX = this.x;
-		var nextY = this.y;
+		var nextX = this.centerX;
+		var nextY = this.centerY;		
 
 		if(this.goingNorth)
 		{
@@ -74,18 +77,33 @@ function vikingClass()
 
 		var nextTileIndex = getTileIndexAtRowCol(nextX, nextY);
 		var nextTileType = TILE_SNOW;
-		//console.log(this.x, this.y, nextTileIndex);
+		//console.log(this.centerX, this.centerY, nextTileIndex);
 
 		if(nextTileIndex != undefined)
 		{
 			nextTileType = worldMap[nextTileIndex];
+
+			if(this.moveIfAble(nextTileType))
+			{
+				this.centerX = nextX;
+				this.centerY = nextY;
+			}
 		}
 
-		if(this.moveIfAble(nextTileType))
-		{
-			this.x = nextX;
-			this.y = nextY;
-		}
+		this.leftEdge = this.centerX - this.bitmap.width/2;
+		this.rightEdge = this.centerX + this.bitmap.width/2;
+		this.topEdge = this.centerY - this.bitmap.height/2;
+		this.bottomEdge = this.centerY + this.bitmap.height/2;
+
+		// console.log(this.leftEdge, this.rightEdge, this.topEdge, this.bottomEdge);
+	}
+
+	this.battle = function(enemy)
+	{
+		/*TODO: find a way to reference enemies; once enemy can detected, check which player edge collide with which enemy edge;
+			if collision was player front on enemy front, dmg player; if collision was player front on enemy back or sides then dmg enemy
+			THINK OF Ys I and II
+		*/	
 	}
 
 	this.moveIfAble = function(tileType)
@@ -115,6 +133,6 @@ function vikingClass()
 
 	this.draw = function()
 	{
-		drawBitmapCenteredWithRot(this.bitmap, this.x, this.y, 0.0);
+		drawBitmapCenteredWithRot(this.bitmap, this.centerX, this.centerY, 0.0);
 	}
 }
