@@ -1,7 +1,20 @@
 var canvas, canvasContext;
 var fps = 30;
+var enemiesObj = {
+	greenBean: {
+		charName: "Green Bean",
+		image: slimePic,
+		instance: new slimeClass()
+	},
+	acidBean: {
+		charName: "Acid Bean",
+		image: slimePic,
+		instance: new slimeClass()
+	}
+};
 var viking = new vikingClass();
 var slime = new slimeClass();
+var slime2 = new slimeClass();
 
 window.onload = function()
 {
@@ -16,7 +29,8 @@ function imgsDoneLoadingSoStartGame()
 	setInterval(updateAll, 1000/fps);
 
 	viking.init(vikingPic, "Ragnar");
-	slime.init(slimePic, "Green Bean");
+	enemiesObj.greenBean.instance.init(enemiesObj.greenBean.image,enemiesObj.greenBean.charName);
+	enemiesObj.acidBean.instance.init(enemiesObj.greenBean.image,enemiesObj.greenBean.charName);
 	setupInput();
 }
 
@@ -30,18 +44,20 @@ function updateAll()
 function moveAll()
 {
 	viking.move();
-	slime.move();
+	enemiesObj.greenBean.instance.move();
+	enemiesObj.acidBean.instance.move();
 }
 
 function battleAll()
 {
-	// viking.battle();
+	viking.battle(enemiesObj.greenBean.instance);
 	// slime.battle();
 }
 
 function drawAll()
 {
 	drawWorld();
-	slime.draw();
+	enemiesObj.greenBean.instance.draw();
+	enemiesObj.acidBean.instance.draw();
 	viking.draw();
 }

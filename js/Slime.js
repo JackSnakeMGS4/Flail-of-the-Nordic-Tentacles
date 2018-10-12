@@ -2,16 +2,13 @@ const SLIME_SPEED = 2.0;
 const WAIT_TIME_BEFORE_PATROLLING = 150;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
-const DETECTION_RADIUS = TILE_W * 3;
+const DETECTION_RADIUS = TILE_W * 2;
 
 function slimeClass()
 {
 	this.centerX = 75;
 	this.centerY = 75;
-	this.leftEdge;
-	this.rightEdge;
-	this.topEdge;
-	this.bottomEdge;
+	this.hitbox = {radius: 15, x: this.centerX, y: this.centerY};
 
 	this.directionFaced;
 	
@@ -60,7 +57,10 @@ function slimeClass()
 
 	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
 	this.move = function()
-	{	
+	{
+		this.hitbox.x = this.centerX;
+		this.hitbox.y = this.centerY;
+
 		var nextX = this.centerX;
 		var nextY = this.centerY;
 
@@ -97,13 +97,6 @@ function slimeClass()
 				}			
 			}
 		}
-
-		this.leftEdge = this.centerX - this.bitmap.width/2;
-		this.rightEdge = this.centerX + this.bitmap.width/2;
-		this.topEdge = this.centerY - this.bitmap.height/2;
-		this.bottomEdge = this.centerY + this.bitmap.height/2;
-
-		// console.log(this.leftEdge, this.rightEdge, this.topEdge, this.bottomEdge);
 	}//end of this.move
 
 	this.battle = function(player)

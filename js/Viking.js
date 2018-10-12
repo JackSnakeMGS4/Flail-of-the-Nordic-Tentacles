@@ -4,10 +4,7 @@ function vikingClass()
 {
 	this.centerX = 75;
 	this.centerY = 75;
-	this.leftEdge;
-	this.rightEdge;
-	this.topEdge;
-	this.bottomEdge;
+	this.hitbox = {radius: 15, x: this.centerX, y: this.centerY};
 
 	this.goingNorth = false;
 	this.goingSouth = false;
@@ -57,6 +54,9 @@ function vikingClass()
 
 	this.move = function()
 	{
+		this.hitbox.x = this.centerX;
+		this.hitbox.y = this.centerY;
+
 		var nextX = this.centerX;
 		var nextY = this.centerY;		
 
@@ -96,13 +96,6 @@ function vikingClass()
 				this.centerY = nextY;
 			}
 		}
-
-		this.leftEdge = this.centerX - this.bitmap.width/2;
-		this.rightEdge = this.centerX + this.bitmap.width/2;
-		this.topEdge = this.centerY - this.bitmap.height/2;
-		this.bottomEdge = this.centerY + this.bitmap.height/2;
-
-		// console.log(this.leftEdge, this.rightEdge, this.topEdge, this.bottomEdge);
 	}
 
 	this.battle = function(enemy)
@@ -112,6 +105,15 @@ function vikingClass()
 			THINK OF Ys I and II
 			NOTE: use this.directionFaced and check it against slime's direction faced to find zone of collision
 		*/	
+		let dx = this.hitbox.x - enemy.hitbox.x;
+		let dy = this.hitbox.y - enemy.hitbox.y;
+		let distance = Math.sqrt(dx*dx + dy*dy);
+
+		if(distance < this.hitbox.radius + enemy.hitbox.radius)
+		{
+			//TODO: check direction faced on colliding characters and dmg the appropriate character
+			console.log("player colliding with enemy");
+		}
 	}
 
 	this.moveIfAble = function(tileType)
