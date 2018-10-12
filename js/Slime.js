@@ -10,6 +10,8 @@ function slimeClass()
 	this.centerY = 75;
 	this.hitbox = {radius: 15, x: this.centerX, y: this.centerY};
 
+	this.stats = new statsClass();
+
 	this.directionFaced;
 	
 	this.numOfPxMoved = 0;
@@ -106,6 +108,67 @@ function slimeClass()
 			THINK OF Ys I and II
 			NOTE: use this.directionFaced and check it against player's direction faced to find zone of collision
 		*/
+		let dx = this.hitbox.x - player.hitbox.x;
+		let dy = this.hitbox.y - player.hitbox.y;
+		let distance = Math.sqrt(dx*dx + dy*dy);
+
+		if(distance < this.hitbox.radius + player.hitbox.radius)
+		{
+			//TODO: check direction faced on colliding characters and dmg the appropriate character
+			if(this.doesPlayerHaveAdvantage(player))
+			{
+				console.log(player.charName + " attacking enemy");
+			}
+			else
+			{
+				console.log(this.charName + " attacking " + player.charName);
+			}
+		}
+	}
+
+	//not the best code ever but it works! TODO:implement a better way of checking direction instead of this
+	this.doesPlayerHaveAdvantage = function(player)
+	{
+		if(player.directionFaced == undefined)
+		{
+			return false;
+		}
+		//check against player east
+		else if(player.directionFaced == "East" && this.directionFaced == "East")
+		{
+			return true;
+		}
+		else if(player.directionFaced == "East" && this.directionFaced == "West")
+		{
+			return false;
+		}
+		//check against player west
+		else if(player.directionFaced == "West" && this.directionFaced == "West")
+		{
+			return true;
+		}
+		else if(player.directionFaced == "West" && this.directionFaced == "East")
+		{
+			return false;
+		}
+		//check against player north
+		else if(player.directionFaced == "North" && this.directionFaced == "East")
+		{
+			return true;
+		}
+		else if(player.directionFaced == "North" && this.directionFaced == "West")
+		{
+			return true;
+		}
+		//check against player south
+		else if(player.directionFaced == "South" && this.directionFaced == "East")
+		{
+			return true;
+		}
+		else if(player.directionFaced == "South" && this.directionFaced == "West")
+		{
+			return true;
+		}
 	}
 
 	this.moveIfAble = function(tileType)

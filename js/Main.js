@@ -13,8 +13,6 @@ var enemiesObj = {
 	}
 };
 var viking = new vikingClass();
-var slime = new slimeClass();
-var slime2 = new slimeClass();
 
 window.onload = function()
 {
@@ -30,7 +28,7 @@ function imgsDoneLoadingSoStartGame()
 
 	viking.init(vikingPic, "Ragnar");
 	enemiesObj.greenBean.instance.init(enemiesObj.greenBean.image,enemiesObj.greenBean.charName);
-	enemiesObj.acidBean.instance.init(enemiesObj.greenBean.image,enemiesObj.greenBean.charName);
+	enemiesObj.acidBean.instance.init(enemiesObj.acidBean.image,enemiesObj.acidBean.charName);
 	setupInput();
 }
 
@@ -50,8 +48,9 @@ function moveAll()
 
 function battleAll()
 {
-	viking.battle(enemiesObj.greenBean.instance);
-	// slime.battle();
+	// viking.battle(enemiesObj.greenBean.instance);
+	enemiesObj.greenBean.instance.battle(viking);
+	enemiesObj.acidBean.instance.battle(viking);
 }
 
 function drawAll()
