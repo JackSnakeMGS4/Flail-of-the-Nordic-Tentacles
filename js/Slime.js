@@ -114,7 +114,7 @@ function slimeClass()
 
 		if(distance < this.hitbox.radius + player.hitbox.radius)
 		{
-			//TODO: check direction faced on colliding characters and dmg the appropriate character
+			//TODO: after implementing stats and XP, check stats and lvls to have somewhat appropriate dmg values
 			if(this.doesPlayerHaveAdvantage(player))
 			{
 				console.log(player.charName + " attacking enemy");
@@ -129,6 +129,7 @@ function slimeClass()
 	//not the best code ever but it works! TODO:implement a better way of checking direction instead of this
 	this.doesPlayerHaveAdvantage = function(player)
 	{
+		//TODO: check against diagonal collisions!
 		if(player.directionFaced == undefined)
 		{
 			return false;

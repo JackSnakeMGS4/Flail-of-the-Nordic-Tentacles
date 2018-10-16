@@ -56,6 +56,8 @@ function vikingClass()
 
 	this.move = function()
 	{
+		//not a good solution; what happens when we need to talk with multiple NPCs in the same small area;
+		// OPINION: I could just check them for collision against the player and run the dialog code? 
 		this.directionFaced = undefined;
 
 		this.hitbox.x = this.centerX;
@@ -64,7 +66,6 @@ function vikingClass()
 		var nextX = this.centerX;
 		var nextY = this.centerY;		
 
-		//TODO: function to set which direction is being faced just like the one implemented in We Must Prepare @Player.js @this.move
 		if(this.goingNorth)
 		{
 			nextY -= VIKING_SPEED;

@@ -1,5 +1,6 @@
 var worldPics = [];
 var vikingPic = document.createElement("img");
+//TODO: have array of enemies instead of single var for each enemy
 var slimePic = document.createElement("img");
 
 var picToLoad = 0;

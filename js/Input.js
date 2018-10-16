@@ -32,6 +32,9 @@ const UP_ARROW =  38;
 const RIGHT_ARROW =  39;
 const DOWN_ARROW =  40;
 
+//TODO: add const for shifts, tab, alts, ctrls, and spacebar
+//TODO: add const for numbers 
+
 var mouseX = 0;
 var mouseY = 0;
 

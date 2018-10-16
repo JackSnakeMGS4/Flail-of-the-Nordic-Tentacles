@@ -1,3 +1,5 @@
+//TODO: implement scrolling grid from bonus section of Hands On book to enables a large world.
+//TODO: implement transitions between world and local maps
 const TILE_W = 40;
 const TILE_H = 40;
 const WORLD_SCALE = 0.5;
