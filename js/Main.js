@@ -1,18 +1,9 @@
 var canvas, canvasContext;
 var fps = 30;
-var enemiesObj = {
-	greenBean: {
-		charName: "Green Bean",
-		image: slimePic,
-		instance: new slimeClass()
-	},
-	acidBean: {
-		charName: "Acid Bean",
-		image: slimePic,
-		instance: new slimeClass()
-	}
-};
-var viking = new vikingClass();
+var enemiesList = [];
+const NUM_OF_ENEMIES_ON_SCREEN = 6;
+
+var player = new vikingClass();
 
 /*
 	there's a better way of running enemy code to enact DRY (dont' repeat yourself) principles;
@@ -28,6 +19,8 @@ window.onload = function()
 {
 	canvas = document.getElementById('gc');
 	canvasContext = canvas.getContext('2d');
+	
+	popEnemyList();
 
 	loadImages();
 }
@@ -36,14 +29,22 @@ function imgsDoneLoadingSoStartGame()
 {
 	setInterval(updateAll, 1000/fps);
 
-	viking.init(vikingPic, "Ragnar");
-	enemiesObj.greenBean.instance.init(enemiesObj.greenBean.image,enemiesObj.greenBean.charName);
-	enemiesObj.acidBean.instance.init(enemiesObj.acidBean.image,enemiesObj.acidBean.charName);
+	player.init(vikingPic, "Ragnar");
+	
+	for(var i = 0; i < enemiesList.length; i++)
+	{
+		//TODO: function to use the appropriate img for an enemy and a way to name them
+		/*
+			enemiesList[i].init(getPicForThisSpecificEnemy(), name of enemy)
+		*/
+		enemiesList[i].init(slimePic, "Slime " + i);
+	}
 	setupInput();
 }
 
 function updateAll()
 {
+	//spawnEnemyAtRandom();
 	moveAll();
 	battleAll();
 	drawAll();
@@ -51,22 +52,52 @@ function updateAll()
 
 function moveAll()
 {
-	viking.move();
-	enemiesObj.greenBean.instance.move();
-	enemiesObj.acidBean.instance.move();
+	player.move();
+	for(var i = 0; i < enemiesList.length; i++)
+	{
+		enemiesList[i].move();
+	}
+	cameraFollow();
 }
 
 function battleAll()
 {
-	// viking.battle(enemiesObj.greenBean.instance);
-	enemiesObj.greenBean.instance.battle(viking);
-	enemiesObj.acidBean.instance.battle(viking);
+	// player.battle(enemiesObj.greenBean.instance);
+	for(var i = 0; i < enemiesList.length; i++)
+	{
+		//checking for battle against player
+		enemiesList[i].battle(player);
+	}
 }
 
 function drawAll()
 {
-	drawWorld();
-	enemiesObj.greenBean.instance.draw();
-	enemiesObj.acidBean.instance.draw();
-	viking.draw();
+	canvasContext.save();
+	canvasContext.translate(-camPanX, -camPanY);
+
+	drawVisibleWorld();
+	for(var i = 0; i < enemiesList.length; i++)
+	{
+		enemiesList[i].draw();
+	}
+	player.draw();
+
+	canvasContext.restore();
+}
+
+function popEnemyList()
+{
+	var tempEnemy;
+	for(var i = 0; i < NUM_OF_ENEMIES_ON_SCREEN; i++)
+	{
+		//TODO: have a way to implement a random enemy at a random location
+		//that is valid (as in traversable)
+
+		//tempEnemy = randomEnemyFromList 
+		tempEnemy = new slimeClass();
+		//enemyLocation = randomTileOnMapThatsWalkable();
+		// tempEnemy.velX = 4-Math.random() * 8;
+		//random velY for enemy;
+		enemiesList.push(tempEnemy);
+	}
 }

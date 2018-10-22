@@ -1,5 +1,4 @@
-const SLIME_SPEED = 2.0;
-const WAIT_TIME_BEFORE_PATROLLING = 150;
+const WAIT_TIME_BEFORE_PATROLLING = 120;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
 const DETECTION_RADIUS = TILE_W * 2;
@@ -9,6 +8,8 @@ function slimeClass()
 	this.centerX = 75;
 	this.centerY = 75;
 	this.hitbox = {radius: 15, x: this.centerX, y: this.centerY};
+	this.velX = 3.0;
+	this.velY = 3.0;
 
 	this.stats = new statsClass();
 
@@ -58,6 +59,7 @@ function slimeClass()
 	}
 
 	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
+	//TODO: randomize direction of movement and patrolling time for each instances
 	this.move = function()
 	{
 		this.hitbox.x = this.centerX;
@@ -70,33 +72,36 @@ function slimeClass()
 			For example, if it collides with a tree to right and has only traveled two tile measures then it will three to the left
 			currently, it only moves two in either directions when it collides but if in the open it will move three right and three left
 		*/
+		//TODO: fix bug that cause patrol behavior to go from 3 tiles to the entire map
+		//and then get stuck in an buggy left/right motion
+		//will most likely be fixed with waypoint system
 		if(!this.isSentryModeOn(WAIT_TIME_BEFORE_PATROLLING))
 		{
 			if(this.isPatrollingRight)
 			{
-				nextX += SLIME_SPEED;
+				nextX += this.velX;
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.numOfPxMoved += SLIME_SPEED;
+					this.numOfPxMoved += this.velX;
 					this.directionFaced = "East";
 					if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
 					{
 						this.isPatrollingRight = !this.isPatrollingRight;
 					}
-				}	
+				}
 			}
 			else if(!this.isPatrollingRight)
 			{
-				nextX -= SLIME_SPEED;
+				nextX -= this.velX;
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.numOfPxMoved -= SLIME_SPEED;
+					this.numOfPxMoved -= this.velX;
 					this.directionFaced = "West";
 					if(this.numOfPxMoved <= 0)
 					{
 						this.isPatrollingRight = !this.isPatrollingRight;
 					}
-				}			
+				}
 			}
 		}
 	}//end of this.move
@@ -172,32 +177,7 @@ function slimeClass()
 		}
 	}
 
-	this.moveIfAble = function(tileType)
-	{
-		switch(tileType)
-		{
-			case TILE_SNOW:
-				return true;
-				break;
-			case TILE_ROAD:
-				return true;
-				break;
-			case TILE_OCEAN:
-				return false;
-				break;
-			case TILE_TREE:
-				return false;
-				break;
-			case TILE_MOUNTAIN:
-				return false;
-				break;
-			default:
-				return false;
-				break;
-		}
-	}
-
-	//check if slime is acting sentry
+	//check if slime is acting as sentry
 	this.isSentryModeOn = function(waitTime)
 	{
 		if(this.currentWaitTime <= 0)
@@ -229,7 +209,7 @@ function slimeClass()
 		if(nextTileIndex != undefined)
 		{
 			nextTileType = worldMap[nextTileIndex];
-			if(this.moveIfAble(nextTileType))
+			if(moveCharIfAble(nextTileType))
 			{
 				this.centerX = nextCenterX;
 				this.centerY = nextCenterY;

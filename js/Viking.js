@@ -1,4 +1,4 @@
-const VIKING_SPEED = 3.0;
+const VIKING_SPEED = 4.0;
 
 function vikingClass()
 {
@@ -92,55 +92,11 @@ function vikingClass()
 		{
 			nextTileType = worldMap[nextTileIndex];
 
-			if(this.moveIfAble(nextTileType))
+			if(moveCharIfAble(nextTileType))
 			{
 				this.centerX = nextX;
 				this.centerY = nextY;
 			}
-		}
-	}
-
-	//Pretty sure this isn't needed if I just check the same thing from the enemy's js
-	// this.battle = function(enemy)
-	// {
-	// 	TODO: find a way to reference enemies; once enemy can detected, check which player edge collide with which enemy edge;
-	// 		if collision was player front on enemy front, dmg player; if collision was player front on enemy back or sides then dmg enemy
-	// 		THINK OF Ys I and II
-	// 		NOTE: use this.directionFaced and check it against slime's direction faced to find zone of collision
-			
-	// 	let dx = this.hitbox.x - enemy.hitbox.x;
-	// 	let dy = this.hitbox.y - enemy.hitbox.y;
-	// 	let distance = Math.sqrt(dx*dx + dy*dy);
-
-	// 	if(distance < this.hitbox.radius + enemy.hitbox.radius)
-	// 	{
-	// 		//TODO: check direction faced on colliding characters and dmg the appropriate character
-	// 		console.log("player colliding with enemy");
-	// 	}
-	// }
-
-	this.moveIfAble = function(tileType)
-	{
-		switch(tileType)
-		{
-			case TILE_SNOW:
-				return true;
-				break;
-			case TILE_ROAD:
-				return true;
-				break;
-			case TILE_OCEAN:
-				return false;
-				break;
-			case TILE_TREE:
-				return false;
-				break;
-			case TILE_MOUNTAIN:
-				return false;
-				break;
-			default:
-				return false;
-				break;
 		}
 	}
 
