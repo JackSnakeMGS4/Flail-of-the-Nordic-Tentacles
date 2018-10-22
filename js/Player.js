@@ -1,6 +1,6 @@
-const VIKING_SPEED = 4.0;
+const PLAYER_SPEED = 6.0;
 
-function vikingClass()
+function playerClass()
 {
 	this.centerX = 75;
 	this.centerY = 75;
@@ -68,19 +68,19 @@ function vikingClass()
 
 		if(this.goingNorth)
 		{
-			nextY -= VIKING_SPEED;
+			nextY -= PLAYER_SPEED;
 		}	
 		if(this.goingSouth)
 		{
-			nextY += VIKING_SPEED;
+			nextY += PLAYER_SPEED;
 		}
 		if(this.goingWest)
 		{
-			nextX -= VIKING_SPEED;
+			nextX -= PLAYER_SPEED;
 		}
 		if(this.goingEast)
 		{
-			nextX += VIKING_SPEED;
+			nextX += PLAYER_SPEED;
 		}
 		this.setDirectionFaced();
 

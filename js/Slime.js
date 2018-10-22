@@ -64,8 +64,6 @@ function slimeClass()
 		this.homeY = startRow * TILE_H + 0.25 * TILE_H;
 	}
 
-	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
-	//TODO: randomize direction of movement and patrolling time for each instances
 	this.move = function()
 	{
 		this.hitbox.x = this.centerX;

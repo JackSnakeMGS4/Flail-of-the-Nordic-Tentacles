@@ -3,7 +3,7 @@ var fps = 30;
 var enemiesList = [];
 const NUM_OF_ENEMIES_ON_SCREEN = 2;
 
-var player = new vikingClass();
+var player = new playerClass();
 
 /*
 	there's a better way of running enemy code to enact DRY (dont' repeat yourself) principles;
