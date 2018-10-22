@@ -129,6 +129,34 @@ function moveCharIfAble(tileType)
 	}
 }
 
-/*
-function randomEnemyLocationThatsWalkable()
-*/
+function findSpawnSpots()
+{
+	for(var i = 0; i < worldMap.length; i++)
+	{
+		if(worldMap[i] == TILE_ENEMY)
+		{
+			console.log("found enemy spawn at: " + i);
+			var tileRow = Math.floor(i/W_COLS);
+			var tileCol = i%W_COLS;
+			enemiesStartSpots.push({col: tileCol, row: tileRow});
+			worldMap[i] = TILE_SNOW;
+		}
+	}
+}
+
+function randomSpawn()
+{
+	if(enemiesStartSpots.length <= 0)
+	{
+		console.log("TRIED TO SPAWN MORE ENEMIES THAN ALLOWED");
+		return;
+	}
+	var randSpot = Math.floor(Math.random() * enemiesStartSpots.length);
+	var tempEnemy = new slimeClass();
+
+	tempEnemy.randomizeInitAI();
+	tempEnemy.setHome(enemiesStartSpots[randSpot].col,enemiesStartSpots[randSpot].row);
+	enemiesStartSpots.splice(randSpot, 1);
+	//random velY for enemy;
+	enemiesList.push(tempEnemy);
+}

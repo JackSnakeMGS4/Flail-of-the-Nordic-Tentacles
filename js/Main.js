@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 var fps = 30;
 var enemiesList = [];
-const NUM_OF_ENEMIES_ON_SCREEN = 3;
+const NUM_OF_ENEMIES_ON_SCREEN = 2;
 
 var player = new vikingClass();
 
@@ -19,8 +19,6 @@ window.onload = function()
 {
 	canvas = document.getElementById('gc');
 	canvasContext = canvas.getContext('2d');
-	
-	popEnemyList();
 
 	loadImages();
 }
@@ -30,7 +28,9 @@ function imgsDoneLoadingSoStartGame()
 	setInterval(updateAll, 1000/fps);
 
 	player.init(vikingPic, "Ragnar");
-	
+
+	findSpawnSpots();
+	popEnemyList();
 	for(var i = 0; i < enemiesList.length; i++)
 	{
 		//TODO: function to use the appropriate img for an enemy and a way to name them
@@ -87,21 +87,8 @@ function drawAll()
 
 function popEnemyList()
 {
-	var tempEnemy;
 	for(var i = 0; i < NUM_OF_ENEMIES_ON_SCREEN; i++)
 	{
-		//TODO: have a way to implement a random enemy at a random location
-		//that is valid (as in traversable)
-
-		//tempEnemy = randomEnemyFromList 
-		tempEnemy = new slimeClass();
-		//enemyLocation = randomTileOnMapThatsWalkable();
-		tempEnemy.velX = 2+Math.random() * 5;
-		if(Math.random() < 0.5)
-		{
-			tempEnemy.velX = -tempEnemy.velX;
-		}
-		//random velY for enemy;
-		enemiesList.push(tempEnemy);
+		randomSpawn();
 	}
 }

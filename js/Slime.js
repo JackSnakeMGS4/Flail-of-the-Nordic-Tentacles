@@ -2,8 +2,7 @@ const WAIT_TIME_BEFORE_PATROLLING = 120;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
 const DETECTION_RADIUS = TILE_W * 2;
-const LEASH_LENGTH = 20;
-
+const LEASH_LENGTH = 80;
 function slimeClass()
 {
 	this.centerX = 75;
@@ -59,6 +58,12 @@ function slimeClass()
 		this.centerY = this.homeY;
 	}
 
+	this.setHome = function(startCol, startRow)
+	{
+		this.homeX = startCol * TILE_W + 0.5 * TILE_W;
+		this.homeY = startRow * TILE_H + 0.25 * TILE_H;
+	}
+
 	//general thoughts: look into making waypoints and letting the enemy itself choose which waypoint to head to and how to get there
 	//TODO: randomize direction of movement and patrolling time for each instances
 	this.move = function()
@@ -76,7 +81,7 @@ function slimeClass()
 		//TODO: fix bug that cause patrol behavior to go from 3 tiles to the entire map
 		//and then get stuck in an buggy left/right motion
 		//will most likely be fixed with waypoint system
-		if(!this.isSentryModeOn(WAIT_TIME_BEFORE_PATROLLING))
+		if(!this.isSentryModeOn())
 		{
 			nextX += this.velX;
 			if(this.velX > 0)
@@ -111,6 +116,16 @@ function slimeClass()
 			}
 		}
 	}//end of this.move
+
+	this.randomizeInitAI = function()
+	{
+		this.velX = 2+Math.random() * 5;
+		if(Math.random() < 0.5)
+		{
+			this.velX = -this.velX;
+		}
+		this.currentWaitTime = Math.floor(Math.random()*WAIT_TIME_BEFORE_PATROLLING);
+	}
 
 	this.battle = function(player)
 	{
@@ -184,27 +199,15 @@ function slimeClass()
 	}
 
 	//check if slime is acting as sentry
-	this.isSentryModeOn = function(waitTime)
+	this.isSentryModeOn = function()
 	{
+		this.currentWaitTime--;
 		if(this.currentWaitTime <= 0)
 		{
-			this.canPatrol = false;
+			this.canPatrol = !this.canPatrol;
+			this.currentWaitTime = WAIT_TIME_BEFORE_PATROLLING;
 		}
-		else if(this.currentWaitTime >= waitTime)
-		{
-			this.canPatrol = true;
-		}
-
-		if(!this.canPatrol)
-		{
-			this.currentWaitTime++;
-			return true;
-		}
-		else
-		{
-			this.currentWaitTime--;
-			return false;
-		}
+		return this.canPatrol;
 	}
 
 	this.canMoveToNextTile = function(nextCenterX,nextCenterY)
