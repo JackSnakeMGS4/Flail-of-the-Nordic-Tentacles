@@ -2,6 +2,7 @@ const WAIT_TIME_BEFORE_PATROLLING = 120;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
 const DETECTION_RADIUS = TILE_W * 2;
+const LEASH_LENGTH = 20;
 
 function slimeClass()
 {
@@ -77,30 +78,35 @@ function slimeClass()
 		//will most likely be fixed with waypoint system
 		if(!this.isSentryModeOn(WAIT_TIME_BEFORE_PATROLLING))
 		{
-			if(this.isPatrollingRight)
+			nextX += this.velX;
+			if(this.velX > 0)
 			{
-				nextX += this.velX;
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.numOfPxMoved += this.velX;
 					this.directionFaced = "East";
-					if(this.numOfPxMoved >= NUM_PATROLLABLE_PIXELS_X)
+					if(nextX > this.homeX + LEASH_LENGTH)
 					{
-						this.isPatrollingRight = !this.isPatrollingRight;
+						this.velX = -this.velX;
 					}
 				}
+				else
+				{
+					this.velX = -this.velX;
+				}
 			}
-			else if(!this.isPatrollingRight)
+			else if(this.velX < 0)
 			{
-				nextX -= this.velX;
 				if(this.canMoveToNextTile(nextX, nextY))
 				{
-					this.numOfPxMoved -= this.velX;
 					this.directionFaced = "West";
-					if(this.numOfPxMoved <= 0)
+					if(nextX < this.homeX - LEASH_LENGTH)
 					{
-						this.isPatrollingRight = !this.isPatrollingRight;
+						this.velX = -this.velX;
 					}
+				}
+				else
+				{
+					this.velX = -this.velX;
 				}
 			}
 		}
@@ -122,11 +128,11 @@ function slimeClass()
 			//TODO: after implementing stats and XP, check stats and lvls to have somewhat appropriate dmg values
 			if(this.doesPlayerHaveAdvantage(player))
 			{
-				console.log(player.charName + " attacking enemy");
+				// console.log(player.charName + " attacking enemy");
 			}
 			else
 			{
-				console.log(this.charName + " attacking " + player.charName);
+				// console.log(this.charName + " attacking " + player.charName);
 			}
 		}
 	}
@@ -218,7 +224,7 @@ function slimeClass()
 			}
 			else
 			{
-				this.isPatrollingRight = !this.isPatrollingRight;
+				// this.isPatrollingRight = !this.isPatrollingRight;
 
 				return false;
 			}

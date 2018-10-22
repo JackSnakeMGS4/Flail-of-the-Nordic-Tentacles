@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 var fps = 30;
 var enemiesList = [];
-const NUM_OF_ENEMIES_ON_SCREEN = 6;
+const NUM_OF_ENEMIES_ON_SCREEN = 3;
 
 var player = new vikingClass();
 
@@ -96,7 +96,11 @@ function popEnemyList()
 		//tempEnemy = randomEnemyFromList 
 		tempEnemy = new slimeClass();
 		//enemyLocation = randomTileOnMapThatsWalkable();
-		// tempEnemy.velX = 4-Math.random() * 8;
+		tempEnemy.velX = 2+Math.random() * 5;
+		if(Math.random() < 0.5)
+		{
+			tempEnemy.velX = -tempEnemy.velX;
+		}
 		//random velY for enemy;
 		enemiesList.push(tempEnemy);
 	}
