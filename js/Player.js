@@ -1,4 +1,4 @@
-const PLAYER_SPEED = 6.0;
+const PLAYER_SPEED = 8.0;
 
 function playerClass()
 {

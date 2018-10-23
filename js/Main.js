@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 var fps = 30;
 var enemiesList = [];
-const NUM_OF_ENEMIES_ON_SCREEN = 2;
+const NUM_OF_ENEMIES_ON_SCREEN = 3;
 
 var player = new playerClass();
 
