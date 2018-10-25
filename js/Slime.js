@@ -117,7 +117,7 @@ function slimeClass()
 
 	this.randomizeInitAI = function()
 	{
-		this.velX = 2+Math.random() * 5;
+		this.velX = 2+Math.random() * 4;
 		if(Math.random() < 0.5)
 		{
 			this.velX = -this.velX;
