@@ -1,7 +1,6 @@
 //TODO: implement transitions between scenes like going from a dungeon to a town if town isn't in dungeon
 const TILE_W = 40;
 const TILE_H = 40;
-const WORLD_SCALE = 0.5;
 const W_ROWS = 17;
 const W_COLS = 22;
 

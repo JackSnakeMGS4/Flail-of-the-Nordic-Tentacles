@@ -23,6 +23,12 @@ function TileGrid()
 
 	this.draw = function()
 	{
-		
+		for(var row = 0; row < this.mapRows; row++)
+		{
+			for(var col = 0; col < this.mapCols; col++)
+			{
+				
+			}
+		}
 	}
 }

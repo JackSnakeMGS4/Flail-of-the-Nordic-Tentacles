@@ -45,7 +45,9 @@ function runEditorInstance()
 function runGameInstance()
 {
 	clearInterval(editorLoop);
+
 	gameLoop = setInterval(updateAll, 1000/fps);
 	gameIsRunning = !gameIsRunning;
+	
 	editor = null;
 }
