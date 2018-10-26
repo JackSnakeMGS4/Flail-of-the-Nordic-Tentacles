@@ -5,15 +5,8 @@ const WORLD_SCALE = 0.5;
 const W_ROWS = 17;
 const W_COLS = 22;
 
-/*TODO: don't want enemies location to be predetermined at launch. want them to spawn
-(but not drawn; that will happen when they are within the camera focus) at a random
-tile at runtime.
-	Currently, if I changed the const for # of enemies on screen in Main.js it will work
-	but that extra enemy will get draw at 0x,0y
-	this will go away as soon as I get that randomLocation function implemented...
-	hopefully
-*/
 var enemiesStartSpots = [];
+/*--TODO: implement saved level maps data from lvl editor--*/
 var worldMap = [
 				2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 				2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,

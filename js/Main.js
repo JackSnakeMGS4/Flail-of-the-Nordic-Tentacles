@@ -1,19 +1,13 @@
 var canvas, canvasContext;
+var gameLoop;
+var gameIsRunning = false;
 var fps = 30;
 var enemiesList = [];
 const NUM_OF_ENEMIES_ON_SCREEN = 3;
 
 var player = new playerClass();
-
-/*
-	there's a better way of running enemy code to enact DRY (dont' repeat yourself) principles;
-	array for the win? but I foresee them destroying the game in terms of speed in general. gameplay such as Ys relies on that speed 
-	to ensure fun whilst playing (that and it's killer OST)
-*/
-
 /*
 	NOTE: will need a way to save just about everything from state of game to player's current spot in game
-	NOTE: will have to implement some way enable faster character movement game
 */
 window.onload = function()
 {
@@ -25,7 +19,8 @@ window.onload = function()
 
 function imgsDoneLoadingSoStartGame()
 {
-	setInterval(updateAll, 1000/fps);
+	gameIsRunning = true;
+	gameLoop = setInterval(updateAll, 1000/fps);
 
 	player.init(vikingPic, "Ragnar");
 
@@ -44,7 +39,6 @@ function imgsDoneLoadingSoStartGame()
 
 function updateAll()
 {
-	//spawnEnemyAtRandom();
 	moveAll();
 	battleAll();
 	drawAll();
@@ -62,7 +56,6 @@ function moveAll()
 
 function battleAll()
 {
-	// player.battle(enemiesObj.greenBean.instance);
 	for(var i = 0; i < enemiesList.length; i++)
 	{
 		//checking for battle against player

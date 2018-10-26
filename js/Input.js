@@ -32,8 +32,11 @@ const UP_ARROW =  38;
 const RIGHT_ARROW =  39;
 const DOWN_ARROW =  40;
 
-//TODO: add const for shifts, tab, alts, ctrls, and spacebar
-//TODO: add const for numbers 
+const TAB = 9;
+const SHIFT = 16;
+const SPACE = 32;
+const ALT = 18;
+const ENTER = 13;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -81,6 +84,13 @@ function keySet (keyEvent, player, setTo)
 function keyPressed(evt)
 {
 	keySet(evt.keyCode, player, true);
+
+	switch(evt.keyCode)
+	{
+		case TAB:
+			useEditorMode();
+			break;
+	}
 
 	evt.preventDefault();
 }

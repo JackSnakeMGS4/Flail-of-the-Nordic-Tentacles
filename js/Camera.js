@@ -33,7 +33,7 @@ function cameraFollow()
 			camPanY -= CAM_SPEED;
 	}
 
-	// instantCamFollow();
+	instantCamFollow();
 
 	if(camPanX < 0)
 	{
