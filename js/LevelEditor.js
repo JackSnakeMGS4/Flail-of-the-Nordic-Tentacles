@@ -39,7 +39,7 @@ function runEditorInstance()
 	editor = new Editor();
 	editor.init();
 
-	editorLoop = setInterval(editor.update, 1000/fps);
+	editorLoop = setInterval(editor.update.bind(editor), 1000/fps);
 }
 
 function runGameInstance()
