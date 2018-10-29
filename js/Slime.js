@@ -117,7 +117,7 @@ function slimeClass()
 
 	this.randomizeInitAI = function()
 	{
-		this.velX = 2+Math.random() * 4;
+		this.velX = 4+Math.random() * 8;
 		if(Math.random() < 0.5)
 		{
 			this.velX = -this.velX;
@@ -141,11 +141,11 @@ function slimeClass()
 			//TODO: after implementing stats and XP, check stats and lvls to have somewhat appropriate dmg values
 			if(this.doesPlayerHaveAdvantage(player))
 			{
-				// console.log(player.charName + " attacking enemy");
+				console.log(player.charName + " attacking enemy");
 			}
 			else
 			{
-				// console.log(this.charName + " attacking " + player.charName);
+				console.log(this.charName + " attacking " + player.charName);
 			}
 		}
 	}

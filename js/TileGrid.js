@@ -4,6 +4,7 @@ function TileGrid()
 	this.mapRows;
 	this.mapCols;
 	this.tileType = TILE_SNOW;
+	// this.hasFirstBlanketBeenDrawn = false;
 
 	this.init = function(rows, cols)
 	{
@@ -21,13 +22,45 @@ function TileGrid()
 		}
 	}
 
+	this.setTile = function(mouseX, mouseY, xTile, yTile)
+	{
+
+	}
+
 	this.draw = function()
 	{
-		for(var row = 0; row < this.mapRows; row++)
+		// if(!this.hasFirstBlanketBeenDrawn)
+		// {
+		// 	for(var col = 0; col < this.mapCols; col++)
+		// 	{
+		// 		for(var row = 0; row < this.mapRows; row++)
+		// 		{
+		// 			var tileLeftEgdeX = col * TILE_W;
+		// 			var tileTopEdgeY = row * TILE_H;
+
+		// 			canvasContext.drawImage(worldPics[this.tileType], tileLeftEgdeX, tileTopEdgeY);
+		// 		}
+		// 	}
+		// 	this.hasFirstBlanketBeenDrawn = true;
+		// }
+		
+		var camLeftMostCol = Math.floor(camPanX/TILE_W);
+		var camTopMostRow = Math.floor(camPanY/TILE_H);
+
+		var colsThatFitOnScreen = Math.floor(canvas.width/TILE_W);
+		var rowsThatFitOnScreen = Math.floor(canvas.height/TILE_H);
+
+		var camRightMostCol = camLeftMostCol + colsThatFitOnScreen + 4;
+		var camBottomMostRow = camTopMostRow + rowsThatFitOnScreen + 2;
+
+		for(var col = camLeftMostCol; col < camRightMostCol; col++)
 		{
-			for(var col = 0; col < this.mapCols; col++)
+			for(var row = camTopMostRow; row < camBottomMostRow; row++)
 			{
-				
+				var tileLeftEgdeX = col * TILE_W;
+				var tileTopEdgeY = row * TILE_H;
+
+				canvasContext.drawImage(worldPics[this.tileType], tileLeftEgdeX, tileTopEdgeY);
 			}
 		}
 	}

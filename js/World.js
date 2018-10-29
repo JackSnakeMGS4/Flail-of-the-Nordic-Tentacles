@@ -1,6 +1,6 @@
 //TODO: implement transitions between scenes like going from a dungeon to a town if town isn't in dungeon
-const TILE_W = 40;
-const TILE_H = 40;
+const TILE_W = 80;
+const TILE_H = 80;
 const W_ROWS = 17;
 const W_COLS = 22;
 
@@ -20,9 +20,9 @@ var worldMap = [
 				2,1,1,1,2,2,2,1,3,1,1,1,1,3,3,3,1,1,4,2,2,2,
 				2,1,1,6,1,1,1,1,1,3,3,3,3,3,1,1,1,4,4,2,2,2,
 				2,1,1,1,1,1,1,1,1,1,1,1,3,1,1,4,4,4,4,2,2,2,
-				2,1,1,1,1,1,1,1,1,1,1,1,3,3,4,4,4,4,4,2,2,2,
-				2,1,1,1,1,1,1,1,1,1,1,1,6,1,4,4,4,4,4,2,2,2,
-				2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,
+				2,1,1,1,1,1,1,1,1,1,1,6,3,3,4,4,4,4,4,2,2,2,
+				2,1,1,1,1,1,1,1,1,6,1,1,6,1,4,4,4,4,4,2,2,2,
+				2,1,1,1,1,1,1,1,1,1,6,1,1,1,1,1,1,1,2,2,2,2,
 				2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 				];	
 
@@ -35,6 +35,9 @@ const TILE_MOUNTAIN = 5;
 const TILE_PLAYER = 0;
 const TILE_ENEMY = 6;
 
+const TILE_AREA_DOOR = 7;
+const TILE_GATE_ITEM = 8;
+
 function drawVisibleWorld()
 {
 	var camLeftMostCol = Math.floor(camPanX/TILE_W);
@@ -43,12 +46,12 @@ function drawVisibleWorld()
 	var colsThatFitOnScreen = Math.floor(canvas.width/TILE_W);
 	var rowsThatFitOnScreen = Math.floor(canvas.height/TILE_H);
 
-	var camRightMostCol = camLeftMostCol + colsThatFitOnScreen + 2;
-	var camBottomMostRow = camTopMostRow + rowsThatFitOnScreen + 1;
+	var camRightMostCol = camLeftMostCol + colsThatFitOnScreen + 4;
+	var camBottomMostRow = camTopMostRow + rowsThatFitOnScreen + 2;
 
-	for(var col=camLeftMostCol; col<camRightMostCol; col++)
+	for(var col = camLeftMostCol; col < camRightMostCol; col++)
 	{
-		for(var row=camTopMostRow; row<camBottomMostRow; row++)
+		for(var row = camTopMostRow; row < camBottomMostRow; row++)
 		{
 			if(doesTileExistAtTileCoord(col,row))
 			{
@@ -60,7 +63,11 @@ function drawVisibleWorld()
 				if(tileType != undefined)
 				{
 					canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
-				}				
+				}	
+				else
+				{
+					console.log("Trying to draw an undefined tile: " + tileType);
+				}			
 			}
 		}
 	}

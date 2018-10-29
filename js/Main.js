@@ -3,7 +3,7 @@ var gameLoop;
 var gameIsRunning = false;
 var fps = 30;
 var enemiesList = [];
-const NUM_OF_ENEMIES_ON_SCREEN = 3;
+const NUM_OF_ENEMIES_ON_SCREEN = 6;
 
 var player = new playerClass();
 /*
@@ -51,7 +51,7 @@ function moveAll()
 	{
 		enemiesList[i].move();
 	}
-	cameraFollow();
+	moveCamera(gameIsRunning, W_COLS, W_ROWS);
 }
 
 function battleAll()

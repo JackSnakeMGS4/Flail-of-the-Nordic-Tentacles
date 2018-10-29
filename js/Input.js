@@ -58,7 +58,7 @@ function updateMousePos(evt)
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 
-	//draw text for mouse pos for debugging purposes? maybe more?
+	// drawText("mouse: " + Math.floor(mouseX/TILE_W) + "," + Math.floor(mouseY/TILE_H), mouseX, mouseY, "red");
 }
 
 function keySet (keyEvent, player, setTo)
@@ -81,9 +81,52 @@ function keySet (keyEvent, player, setTo)
 	}
 }
 
+function editorScreenMove(evt)
+{
+	// var mouseDistFromFocusX = Math.abs(mouseX - cfcX);
+	// var mouseDistFromFocusY = Math.abs(mouseY - cfcY);
+
+	// if(mouseDistFromFocusX > DIST_BEFORE_X_PAN)
+	// {
+	// 	console.log("Camera is moving");
+	// 	if(cfcX < mouseX)
+	// 		camPanX += CAM_SPEED;
+	// 	else
+	// 		camPanX -= CAM_SPEED;
+	// }
+	// if(mouseDistFromFocusY > DIST_BEFORE_Y_PAN)
+	// {
+	// 	console.log("Camera is moving");
+	// 	if(cfcY < mouseY)
+	// 		camPanY += CAM_SPEED;
+	// 	else
+	// 		camPanY -= CAM_SPEED;
+	// }
+
+	if(evt.keyCode === KEY_F)
+	{
+		camPanX -= CAM_SPEED;
+	}
+	if(evt.keyCode === KEY_T)
+	{
+		camPanY -= CAM_SPEED;
+	}
+	if(evt.keyCode === KEY_G)
+	{
+		camPanY += CAM_SPEED;
+	}
+	if(evt.keyCode === KEY_H)
+	{
+		camPanX += CAM_SPEED;
+	}
+}
+
 function keyPressed(evt)
 {
 	keySet(evt.keyCode, player, true);
+	
+	if(!gameIsRunning)
+		editorScreenMove(evt);
 
 	switch(evt.keyCode)
 	{
