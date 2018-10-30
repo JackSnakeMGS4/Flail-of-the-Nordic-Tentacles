@@ -25,8 +25,8 @@ function Editor()
 	this.update = function()
 	{
 		this.grid.draw();
-		moveCamera(gameIsRunning, this.grid.mapCols, this.grid.mapRows);
-		drawText("mouse: " + Math.floor(mouseX/TILE_W) + "," + Math.floor(mouseY/TILE_H), mouseX, mouseY, "red");
+		moveCamera(this.grid.mapCols, this.grid.mapRows);
+		editorDebugTools();
 		//handle canvas dragging or scrolling
 		//check for changes to tiles and reflect them
 		//check for saves/deletes
@@ -57,4 +57,10 @@ function runGameInstance()
 	gameIsRunning = !gameIsRunning;
 	
 	editor = null;
+}
+
+function editorDebugTools()
+{
+	drawCircle(camPanX, camPanY, 5, 'red');
+	drawText("mouse: " + Math.floor(mouseX/TILE_W) + "," + Math.floor(mouseY/TILE_H), mouseX, mouseY, "red");
 }

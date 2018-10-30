@@ -72,16 +72,10 @@ function slimeClass()
 		var nextX = this.centerX;
 		var nextY = this.centerY;
 
-		/*TODO: make enemy move three tiles even if it collides with terrain. 
-			For example, if it collides with a tree to right and has only traveled two tile measures then it will three to the left
-			currently, it only moves two in either directions when it collides but if in the open it will move three right and three left
-		*/
-		//TODO: fix bug that cause patrol behavior to go from 3 tiles to the entire map
-		//and then get stuck in an buggy left/right motion
-		//will most likely be fixed with waypoint system
 		if(!this.isSentryModeOn())
 		{
 			nextX += this.velX;
+			// nextY += this.velY;
 			if(this.velX > 0)
 			{
 				if(this.canMoveToNextTile(nextX, nextY))
@@ -117,10 +111,12 @@ function slimeClass()
 
 	this.randomizeInitAI = function()
 	{
-		this.velX = 4+Math.random() * 8;
+		this.velX = 4 + Math.random() * 8;
+		this.velY = 4 + Math.random() * 8;
 		if(Math.random() < 0.5)
 		{
 			this.velX = -this.velX;
+			this.velY = -this.velY;
 		}
 		this.currentWaitTime = Math.floor(Math.random()*WAIT_TIME_BEFORE_PATROLLING);
 	}

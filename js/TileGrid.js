@@ -4,7 +4,6 @@ function TileGrid()
 	this.mapRows;
 	this.mapCols;
 	this.tileType = TILE_SNOW;
-	// this.hasFirstBlanketBeenDrawn = false;
 
 	this.init = function(rows, cols)
 	{
@@ -29,21 +28,16 @@ function TileGrid()
 
 	this.draw = function()
 	{
-		// if(!this.hasFirstBlanketBeenDrawn)
-		// {
-		// 	for(var col = 0; col < this.mapCols; col++)
-		// 	{
-		// 		for(var row = 0; row < this.mapRows; row++)
-		// 		{
-		// 			var tileLeftEgdeX = col * TILE_W;
-		// 			var tileTopEdgeY = row * TILE_H;
+		canvasContext.save();
+		canvasContext.translate(-camPanX, -camPanY);
 
-		// 			canvasContext.drawImage(worldPics[this.tileType], tileLeftEgdeX, tileTopEdgeY);
-		// 		}
-		// 	}
-		// 	this.hasFirstBlanketBeenDrawn = true;
-		// }
-		
+		this.drawVisibleGrid();
+
+		canvasContext.restore();
+	}
+
+	this.drawVisibleGrid = function()
+	{
 		var camLeftMostCol = Math.floor(camPanX/TILE_W);
 		var camTopMostRow = Math.floor(camPanY/TILE_H);
 

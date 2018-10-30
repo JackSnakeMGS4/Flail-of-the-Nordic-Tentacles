@@ -2,18 +2,18 @@ var camPanX = 0.0;
 var camPanY = 0.0;
 const DIST_BEFORE_X_PAN = 150;
 const DIST_BEFORE_Y_PAN = 100;
-const CAM_SPEED = 80.0;//for editor use only
+const CAM_SPEED = 10.0;//for editor use only
 
 function instantCamFollow()
-{
+{	
 	camPanX = player.centerX - canvas.width/2;
 	camPanY = player.centerY - canvas.height/2;
 }
 
-function moveCamera(gameIsRunning, cols, rows)
+function moveCamera(cols, rows)
 {
-	var camFocusCenterX = camPanX + canvas.width/2;
-	var camFocusCenterY = camPanY + canvas.height/2;
+	var camFocusCenterX = camPanX + canvas.width/2;//300
+	var camFocusCenterY = camPanY + canvas.height/2;//400
 
 	if(gameIsRunning)
 	{
@@ -43,21 +43,21 @@ function moveCamera(gameIsRunning, cols, rows)
 
 function followPlayer(cfcX, cfcY)
 {
-	// var playerDistFromFocusX = Math.abs(player.centerX - cfcX);
-	// var playerDistFromFocusY = Math.abs(player.centerY - cfcY);
+	var playerDistFromFocusX = Math.abs(player.centerX - cfcX);
+	var playerDistFromFocusY = Math.abs(player.centerY - cfcY);
 
-	// if(playerDistFromFocusX > DIST_BEFORE_X_PAN)
-	// {
-	// 	if(cfcX < player.centerX)
-	// 		camPanX += CAM_SPEED;
-	// 	else
-	// 		camPanX -= CAM_SPEED;
-	// }
-	// if(playerDistFromFocusY > DIST_BEFORE_Y_PAN)
-	// {
-	// 	if(cfcY < player.centerY)
-	// 		camPanY += CAM_SPEED;
-	// 	else
-	// 		camPanY -= CAM_SPEED;
-	// }
+	if(playerDistFromFocusX > DIST_BEFORE_X_PAN)
+	{
+		if(cfcX < player.centerX)
+			camPanX += CAM_SPEED;
+		else
+			camPanX -= CAM_SPEED;
+	}
+	if(playerDistFromFocusY > DIST_BEFORE_Y_PAN)
+	{
+		if(cfcY < player.centerY)
+			camPanY += CAM_SPEED;
+		else
+			camPanY -= CAM_SPEED;
+	}
 }

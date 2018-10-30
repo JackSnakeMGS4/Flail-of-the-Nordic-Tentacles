@@ -57,8 +57,6 @@ function updateMousePos(evt)
 
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
 	mouseY = evt.clientY - rect.top - root.scrollTop;
-
-	// drawText("mouse: " + Math.floor(mouseX/TILE_W) + "," + Math.floor(mouseY/TILE_H), mouseX, mouseY, "red");
 }
 
 function keySet (keyEvent, player, setTo)
@@ -124,7 +122,7 @@ function editorScreenMove(evt)
 function keyPressed(evt)
 {
 	keySet(evt.keyCode, player, true);
-	
+
 	if(!gameIsRunning)
 		editorScreenMove(evt);
 

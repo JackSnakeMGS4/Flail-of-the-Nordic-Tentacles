@@ -3,7 +3,7 @@ var gameLoop;
 var gameIsRunning = false;
 var fps = 30;
 var enemiesList = [];
-const NUM_OF_ENEMIES_ON_SCREEN = 6;
+const NUM_OF_ENEMIES_ON_SCREEN = 14;
 
 var player = new playerClass();
 /*
@@ -51,7 +51,7 @@ function moveAll()
 	{
 		enemiesList[i].move();
 	}
-	moveCamera(gameIsRunning, W_COLS, W_ROWS);
+	moveCamera(W_COLS, W_ROWS);
 }
 
 function battleAll()
@@ -76,6 +76,7 @@ function drawAll()
 	player.draw();
 
 	canvasContext.restore();
+	gameDebugTools();
 }
 
 function popEnemyList()
@@ -84,4 +85,10 @@ function popEnemyList()
 	{
 		randomSpawn();
 	}
+}
+
+function gameDebugTools()
+{
+	drawCircle(camPanX, camPanY, 5, 'red');
+	drawText("mouse: " + mouseX + "," + mouseY, mouseX, mouseY, "red");//debug only
 }
