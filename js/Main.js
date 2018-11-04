@@ -90,5 +90,5 @@ function popEnemyList()
 function gameDebugTools()
 {
 	drawCircle(camPanX, camPanY, 5, 'red');
-	drawText("mouse: " + mouseX + "," + mouseY, mouseX, mouseY, "red");//debug only
+	drawText("mouse: " + mouseX + "," + mouseY, mouseX, mouseY, "red");
 }

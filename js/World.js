@@ -5,6 +5,7 @@ const W_ROWS = 17;
 const W_COLS = 22;
 
 var enemiesStartSpots = [];
+var itemSpawnSpots = [];
 /*--TODO: implement saved level maps data from lvl editor--*/
 var worldMap = [
 				2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
@@ -15,8 +16,8 @@ var worldMap = [
 				2,2,2,2,2,2,2,2,1,1,1,1,6,1,1,6,5,5,5,1,1,2,
 				2,1,1,2,2,2,2,2,1,1,1,1,1,1,6,1,1,3,1,1,1,2,
 				2,1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,1,3,1,1,1,2,
-				2,1,1,1,1,2,2,2,1,1,1,0,1,1,1,1,3,3,1,1,1,2,
-				2,1,1,1,2,2,2,3,1,1,1,1,1,1,1,3,3,1,1,2,1,2,
+				2,1,1,1,1,2,2,2,1,1,8,0,12,1,1,1,3,3,1,1,1,2,
+				2,1,1,1,2,2,2,3,1,1,9,10,11,1,1,3,3,1,1,2,1,2,
 				2,1,6,1,2,2,2,1,3,1,1,1,1,3,3,3,1,1,4,2,2,2,
 				2,1,1,6,1,1,1,1,1,3,3,3,3,3,1,1,1,4,4,2,2,2,
 				2,1,1,1,6,1,1,1,1,1,1,1,3,1,1,4,4,4,4,2,2,2,
@@ -36,7 +37,11 @@ const TILE_PLAYER = 0;
 const TILE_ENEMY = 6;
 
 const TILE_AREA_DOOR = 7;
-const TILE_GATE_ITEM = 8;
+const TILE_HORN = 8;
+const TILE_EYEPATCH = 9;
+const TILE_TENCTACLE = 10;
+const TILE_WORMHOLE = 11;
+const TILE_DICTIONARY = 12;
 
 function drawVisibleWorld()
 {
@@ -62,6 +67,7 @@ function drawVisibleWorld()
 
 				if(tileType != undefined)
 				{
+					canvasContext.drawImage(worldPics[TILE_SNOW], tileLeftEgdeX, tileTopEdgeY);
 					canvasContext.drawImage(worldPics[tileType], tileLeftEgdeX, tileTopEdgeY);
 				}	
 				else
@@ -113,6 +119,21 @@ function moveCharIfAble(tileType)
 		case TILE_ROAD:
 			return true;
 			break;
+		case TILE_HORN:
+			return true;
+			break;
+		case TILE_EYEPATCH:
+			return true;
+			break;
+		case TILE_DICTIONARY:
+			return true;
+			break;
+		case TILE_TENCTACLE:
+			return true;
+			break;
+		case TILE_WORMHOLE:
+			return true;
+			break;
 		case TILE_OCEAN:
 			return false;
 			break;
@@ -140,6 +161,13 @@ function findSpawnSpots()
 			enemiesStartSpots.push({col: tileCol, row: tileRow});
 			worldMap[i] = TILE_SNOW;
 		}
+		// else if(worldMap[i] == TILE_ITEM)
+		// {
+		// 	var tileRow = Math.floor(i/W_COLS);
+		// 	var tileCol = i%W_COLS;
+		// 	itemSpawnSpots.push({col: tileCol, row: tileRow});
+		// 	worldMap[i] = TILE_SNOW;
+		// }
 	}
 }
 

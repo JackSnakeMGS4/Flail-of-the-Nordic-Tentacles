@@ -8,17 +8,24 @@ var picToLoad = 0;
 function loadImages()
 {
 	var imageList = [
+
 		// Character Pics Go Here
-		// {charName: CHAR_TYPE from world.js, fileName: "playerPic.png"}
 		{charName: vikingPic, fileName: "viking_quick.png"},
 		{charName: slimePic, fileName: "slime_quick.png"},
+
 		// World Pics Go Here
-		// {worldType: TILE_TYPE (as in variable that this file will be associated with) from World.js, fileName: "groundPic.png"}
 		{worldType: TILE_ROAD, fileName: "road_quick.png"},
 		{worldType: TILE_OCEAN, fileName: "ocean_quick.png"},
 		{worldType: TILE_SNOW, fileName: "snow_quick.png"},
 		{worldType: TILE_MOUNTAIN, fileName: "mountain_quick.png"},
-		{worldType: TILE_TREE, fileName: "tree_quick.png"}
+		{worldType: TILE_TREE, fileName: "tree_quick.png"},
+		{worldType: TILE_HORN, fileName: "chaos_horn_quick.png"},
+		{worldType: TILE_EYEPATCH, fileName: "odins_eyepatch_quick.png"},
+		{worldType: TILE_TENCTACLE, fileName: "decaying_tentacle_quick.png"},
+		{worldType: TILE_WORMHOLE, fileName: "wormhole_quick.png"},
+		{worldType: TILE_DICTIONARY, fileName: "dig_dictionary_quick.png"},
+
+		//Item Pics Go Here... maybe?
 		]
 
 	picsToLoad = imageList.length;
