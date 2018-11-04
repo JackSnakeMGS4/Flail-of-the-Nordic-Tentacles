@@ -6,6 +6,7 @@ function playerClass()
 	this.centerY = 75;
 	this.hitbox = {radius: 15, x: this.centerX, y: this.centerY};
 
+	this.exp = new xpClass();
 	this.stats = new statsClass();
 
 	this.goingNorth = false;

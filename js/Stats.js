@@ -7,11 +7,9 @@ function statsClass()
 {
 	//health,magic,strength,agility,vitality,intelligence
 	this.hp;
-	this.mp;
+	this.mp;//possibility of magic attacks?
 	this.str;
-	this.agl;
-	this.vit;
-	this.int;
+	this.def;
 
 	this.init = function()
 	{

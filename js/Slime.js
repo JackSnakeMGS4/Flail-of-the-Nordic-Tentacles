@@ -2,7 +2,7 @@ const WAIT_TIME_BEFORE_PATROLLING = 120;
 const NUM_PATROLLABLE_PIXELS_X = TILE_W * 2;
 const NUM_PATROLLABLE_PIXELS_Y = TILE_H * 2;
 const DETECTION_RADIUS = TILE_W * 2;
-const LEASH_LENGTH = 80;
+const LEASH_LENGTH = 120;
 function slimeClass()
 {
 	this.centerX = 75;
@@ -11,6 +11,7 @@ function slimeClass()
 	this.velX = 3.0;
 	this.velY = 3.0;
 
+	this.exp = new xpClass();//only for init level within a bracket appropriate to enemy
 	this.stats = new statsClass();
 
 	this.directionFaced;
@@ -20,6 +21,8 @@ function slimeClass()
 
 	this.isPatrollingRight = false;
 	this.canPatrol = false;
+
+	this.isDefeated = false;
 
 	/* 
 	TODO: use bools (until I figure out a better solution if it's within my skill level) to make enemy move one direction a time only
@@ -75,7 +78,7 @@ function slimeClass()
 		if(!this.isSentryModeOn())
 		{
 			nextX += this.velX;
-			// nextY += this.velY;
+			nextY += this.velY;
 			if(this.velX > 0)
 			{
 				if(this.canMoveToNextTile(nextX, nextY))
@@ -104,6 +107,36 @@ function slimeClass()
 				else
 				{
 					this.velX = -this.velX;
+				}
+			}
+			if(this.velY > 0)
+			{
+				if(this.canMoveToNextTile(nextX, nextY))
+				{
+					this.directionFaced = "East";
+					if(nextY > this.homeY + LEASH_LENGTH)
+					{
+						this.velY = -this.velY;
+					}
+				}
+				else
+				{
+					this.velY = -this.velY;
+				}
+			}
+			else if(this.velY < 0)
+			{
+				if(this.canMoveToNextTile(nextX, nextY))
+				{
+					this.directionFaced = "West";
+					if(nextY < this.homeY - LEASH_LENGTH)
+					{
+						this.velY = -this.velY;
+					}
+				}
+				else
+				{
+					this.velY = -this.velY;
 				}
 			}
 		}
@@ -149,7 +182,6 @@ function slimeClass()
 	//not the best code ever but it works! TODO:implement a better way of checking direction instead of this
 	this.doesPlayerHaveAdvantage = function(player)
 	{
-		//TODO: check against diagonal collisions!
 		if(player.directionFaced == undefined)
 		{
 			return false;
